@@ -16,7 +16,13 @@ io.on('connection', (socket) => {
 		console.log(`${socket.id} disconnected`);
 	});
 	socket.on('Client-send-data', (data) => {
-		io.sockets.emit('Server-send-data', `${data} test`);
+		// io.sockets.emit('Server-send-data', `${data} test`);
+		// socket.emit('Server-send-data', 'test');
+		// socket.broadcast.emit('Server-send-data', 'test');
+	});
+	socket.on('sendNumberData', (data) => {
+		var result = parseInt(data.A) + parseInt(data.B);
+		socket.broadcast.emit('receiveResultData', result);
 	});
 });
 app.get('/', (req, res) => {

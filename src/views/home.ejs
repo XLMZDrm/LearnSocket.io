@@ -10,21 +10,39 @@
     <script>
         // connect
         const socket = io("http://localhost/");
-        socket.on('Server-send-data', data => {
-            $('#content').append(`${data}, `);
+        // socket.on('Server-send-data', data => {
+        //     $('#content').append(`${data}, `);
+        // });
+        // $(document).ready(() => {
+        //     $('#mrA').click(() => {
+        //         socket.emit('Client-send-data', 'Syhanh');
+        //     });
+        // });
+        socket.on('receiveResultData', data => {
+            $('#result').val(data);
         });
         $(document).ready(() => {
-            $('#mrA').click(() => {
-                socket.emit('Client-send-data', 'Syhanh');
+            $('#send-number').click(() => {
+                const A = $('#A').val();
+                const B = $('#B').val();
+                socket.emit('sendNumberData', { A, B });
             });
         })
-
     </script>
 </head>
 
 <body>
-    <div id="mrA">Click send</div>
-    <h2 id="content"></h2>
+    <!-- <div id="mrA">Click send</div>
+    <h2 id="content"></h2> -->
+    <div class="demoApp">
+        <label for="result">Result:</label>
+        <input type="number" id="result" disabled><br>
+        <label for="A">A:</label>
+        <input type="number" id="A"><br>
+        <label for="B">B</label>
+        <input type="number" id="B"><br>
+        <button id="send-number">Send</button>
+    </div>
 </body>
 
 </html>
