@@ -10,12 +10,21 @@
     <script>
         // connect
         const socket = io("http://localhost/");
+        socket.on('Server-send-data', data => {
+            $('#content').append(`${data}, `);
+        });
+        $(document).ready(() => {
+            $('#mrA').click(() => {
+                socket.emit('Client-send-data', 'Syhanh');
+            });
+        })
 
     </script>
 </head>
 
 <body>
-    ejss
+    <div id="mrA">Click send</div>
+    <h2 id="content"></h2>
 </body>
 
 </html>

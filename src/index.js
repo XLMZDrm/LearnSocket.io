@@ -15,6 +15,9 @@ io.on('connection', (socket) => {
 	socket.on('disconnect', () => {
 		console.log(`${socket.id} disconnected`);
 	});
+	socket.on('Client-send-data', (data) => {
+		io.sockets.emit('Server-send-data', `${data} test`);
+	});
 });
 app.get('/', (req, res) => {
 	res.render('home');
