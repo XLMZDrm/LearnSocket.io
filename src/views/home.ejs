@@ -5,44 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="layout.css">
     <script src="jquery.js""></script>
     <script src=" socket.io/socket.io.js"></script>
-    <script>
-        // connect
-        const socket = io("http://localhost/");
-        // socket.on('Server-send-data', data => {
-        //     $('#content').append(`${data}, `);
-        // });
-        // $(document).ready(() => {
-        //     $('#mrA').click(() => {
-        //         socket.emit('Client-send-data', 'Syhanh');
-        //     });
-        // });
-        socket.on('receiveResultData', data => {
-            $('#result').val(data);
-        });
-        $(document).ready(() => {
-            $('#send-number').click(() => {
-                const A = $('#A').val();
-                const B = $('#B').val();
-                socket.emit('sendNumberData', { A, B });
-            });
-        })
-    </script>
+    <script src="function.js"></script>
 </head>
 
 <body>
-    <!-- <div id="mrA">Click send</div>
-    <h2 id="content"></h2> -->
-    <div class="demoApp">
-        <label for="result">Result:</label>
-        <input type="number" id="result" disabled><br>
-        <label for="A">A:</label>
-        <input type="number" id="A"><br>
-        <label for="B">B</label>
-        <input type="number" id="B"><br>
-        <button id="send-number">Send</button>
+    <input type="text" id="txtRoom">
+    <input type="button" value="Tạo room" id="btnCreateRoom">
+    <div id="left">
+        <h3>Rooms</h3>
+        <div id="roomList"></div>
     </div>
+    <h4 id="currentRoom">...</h4>
+    <div id="right">
+
+    </div>
+    <input type="text" id="txtMessage">
+    <input type="button" value="Chat" id="btnChat">
 </body>
 
 </html>

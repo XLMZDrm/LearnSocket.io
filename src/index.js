@@ -11,18 +11,22 @@ server.listen(80, () => {
 });
 const io = new Server(server);
 io.on('connection', (socket) => {
-	console.log(`${socket.id} is connecting`);
+	console.log(`Connected: ${socket.id}`);
 	socket.on('disconnect', () => {
-		console.log(`${socket.id} disconnected`);
+		console.log(`Disconnected: ${socket.id}`);
 	});
-	socket.on('Client-send-data', (data) => {
-		// io.sockets.emit('Server-send-data', `${data} test`);
-		// socket.emit('Server-send-data', 'test');
-		// socket.broadcast.emit('Server-send-data', 'test');
+	socket.on('create-room', (data) => {
+		socket.join(data);
+		socket.room = data;
+		let rooms = [];
+		for (let room of io.sockets.adapter.rooms) {
+			rooms.push(room[0]);
+		}
+		io.sockets.emit('server-send-rooms', rooms);
+		socket.emit('server-send-currentRoom', data);
 	});
-	socket.on('sendNumberData', (data) => {
-		var result = parseInt(data.A) + parseInt(data.B);
-		socket.broadcast.emit('receiveResultData', result);
+	socket.on('user-chat', (data) => {
+		io.sockets.to(socket.room).emit('server-chat', data);
 	});
 });
 app.get('/', (req, res) => {
