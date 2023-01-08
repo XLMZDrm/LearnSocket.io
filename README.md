@@ -1,3 +1,3 @@
 # LearnSocket.io
 
-`const author = "drm"`
+`const author = "REdirect"`
